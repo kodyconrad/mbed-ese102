@@ -24,4 +24,4 @@ board:
         # - universal: NONE, MBED, JLINK, PYOCD, OPENOCD
         # - target specific: STLINK, STM32CUBE, LINKSERVER, PICOTOOL, ARDUINO_BOSSAC
         # For more visit - https://github.com/mbed-ce/mbed-os/wiki/Upload-Methods#upload-method-list
-        UPLOAD_METHOD: STLINK
+        UPLOAD_METHOD: STM32Cube

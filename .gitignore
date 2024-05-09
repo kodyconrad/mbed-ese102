@@ -37,3 +37,4 @@ build/
 
 # Mac stuff
 .DS_Store
+CMakeCache.txt

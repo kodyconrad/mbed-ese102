@@ -1,0 +1,27 @@
+buildType:
+  default: Develop
+  choices:
+    Develop:
+      short: Develop
+      long: Emit debug information but also optimize
+      buildType: Develop
+    Debug:
+      short: Debug
+      long: Emit debug information and don't optimize
+      buildType: Debug
+    Release:
+      short: Release
+      long: Optimize generated code
+      buildType: Release
+board:
+  default: NUCLEO_F746ZG
+  choices:
+    NUCLEO_F746ZG:
+      short: NUCLEO_F746ZG
+      settings:
+        MBED_TARGET: NUCLEO_F746ZG
+        # Fill your upload method according to variants below
+        # - universal: NONE, MBED, JLINK, PYOCD, OPENOCD
+        # - target specific: STLINK, STM32CUBE, LINKSERVER, PICOTOOL, ARDUINO_BOSSAC
+        # For more visit - https://github.com/mbed-ce/mbed-os/wiki/Upload-Methods#upload-method-list
+        UPLOAD_METHOD: STLINK

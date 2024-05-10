@@ -1,8 +1,0 @@
-{
-    "cmake.buildDirectory": "${workspaceFolder}/build/${variant:board}-${variant:buildType}",
-    "files.associations": {
-        "*.tcc": "cpp",
-        "ostream": "cpp",
-        "chrono": "cpp"
-    }
-}

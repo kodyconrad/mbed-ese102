@@ -1,5 +1,16 @@
-# Mbed CE Hello World
-This project implements a basic hello world using Mbed OS Community Edition.  Use it as an example or a starting place for your own projects!
+# Mbed CE - ESE102 Project
+
+This repository represents the projects within [ESE102 ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course using the Nucleo F746ZG with the Mbed Community Edition (CE) fork.
+
+## Why Community Edition?
+
+My journey taking the first official Embedded Systems Essentials with Arm – Professional Certificate on edX led me to wonder exactly how much the Mbed OS framework was being used in the commercial products space. The development environments felt very hobbyist, developer content/projects always seemed very old, and the build system was attrocious. Was this a fruitless endeavor? Could my time be better spent using the standard STM32 development tools and resources? The answer, is a maybe, but I already spent the money on the class, so it was now a question of "How do I make the most out of ESE102?"
+
+These questions eventually led me to the following post by MultipleMonomials (Jamie Smith) [[Help Wanted] Mbed CE: A community fork of Mbed OS](https://forums.mbed.com/t/help-wanted-mbed-ce-a-community-fork-of-mbed-os/17998). Thus, I created this project from [mbed-ce-hello-world](https://github.com/mbed-ce/mbed-ce-hello-world) to finish off the second course, and it would at least be leveraging a fork that is actively supported and maintained by the community.
+
+# Setup
+
+The following are instructions to help setup the project on your local system.
 
 ## How to set up this project:
 
@@ -11,3 +22,46 @@ This project implements a basic hello world using Mbed OS Community Edition.  Us
     - Using the [CLion IDE](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-CLion)
     - Using the [VS Code IDE](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-VS-Code)
 5. Build the `flash-HelloWorld` target to upload the code to a connected device.
+
+## Configuring VS Code Settings
+
+### 1. Open User Settings
+
+You can configure VS Code to your liking through its various settings. Nearly every part of VS Code's editor, user interface, and functional behavior has options you can modify. To get started, follow these steps:
+
+1. **Open User Settings**:
+   - Press `Ctrl + ,` (Windows/Linux) or `⌘ + ,` (macOS) to open the Command Palette.
+   - Type "Preferences: Open User Settings (JSON)" and select it from the dropdown. This will open your `settings.json` file.
+
+### 2. Add or Modify Settings
+
+In your `settings.json`, you can add or modify the following configurations:
+
+> These are settings that i found to be helpful in using a CMake based project.
+
+```json
+{
+    "cmake.buildDirectory": "${workspaceFolder}/build/${variant:board}-${variant:buildType}",
+    "files.associations": {
+        "*.tcc": "cpp",
+        "ostream": "cpp",
+        "chrono": "cpp"
+    },
+    "cmake.configureOnOpen": true,
+    "git.autofetch": true,
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.options.advanced": {
+        "build": {
+            "statusBarVisibility": "inherit",
+            "inheritDefault": "visible"
+        },
+        "launch": {
+            "statusBarVisibility": "inherit",
+            "inheritDefault": "visible"
+        },
+        "debug": {
+            "statusBarVisibility": "inherit",
+            "inheritDefault": "visible"
+        }
+    }
+}

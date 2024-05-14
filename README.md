@@ -28,7 +28,7 @@ We will use the **SPI3** channel to control the **SN74HC595**.
 
 The following are instructions to help setup the project on your local system.
 
-## How to set up this project:
+> The following were copied and updated from the [mbed-ce-hello-world](https://github.com/mbed-ce/mbed-ce-hello-world)
 
 1. Clone it to your machine.  Don't forget to use `--recursive` to clone the submodules: `git clone --recursive https://github.com/mbed-ce/mbed-ce-hello-world.git`
 2. You may want to update the mbed-os submodule to the latest version, with `cd mbed-ce-hello-world/mbed-os && git fetch origin && git reset --hard origin/master`
@@ -37,7 +37,12 @@ The following are instructions to help setup the project on your local system.
     - On the [command line](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-Command-Line)
     - Using the [CLion IDE](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-CLion)
     - Using the [VS Code IDE](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-VS-Code)
-5. Build the `flash-HelloWorld` target to upload the code to a connected device.
+5. Build the `flash-ESE102M#` target to upload the code to a connected device, where `#` is the module number to be built.
+
+    **VS Code Notes**
+
+    1. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Build Target` option i.e. `flash-ESE102M1`.
+    2. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Variant` to select from Develop, Debug, etc.
 
 ## Configuring VS Code Settings
 
@@ -51,9 +56,7 @@ You can configure VS Code to your liking through its various settings. Nearly ev
 
 ### 2. Add or Modify Settings
 
-In your `settings.json`, you can add or modify the following configurations:
-
-> These are settings that i found to be helpful in using a CMake based project.
+In your `.vscode/settings.json`, you can add, remove, modify to your hearts content.Below are settings that I found to be helpful for these Mbed OS CE CMake projects.
 
 ```json
 {

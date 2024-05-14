@@ -17,7 +17,9 @@ add_subdirectory(mbed-os) # Load Mbed OS build targets.  Must be added before an
 
 project(MbedCEESE102)
 
+# Add additional executables for each module and sub-stages within to easily track and allow flashing of that module as needed.
 add_executable(ESE102M1 ./module_1/main.cpp)
+
 target_link_libraries(ESE102M1 mbed-os) # Can also link to mbed-baremetal here
 mbed_set_post_build(ESE102M1) # Must call this for each target to set up bin file creation, code upload, etc
 

@@ -1,6 +1,6 @@
 # Mbed CE - ESE102 Project
 
-This repository represents the projects within [ESE102 ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course using the Nucleo F746ZG with the Mbed Community Edition (CE) fork.
+This repository represents the projects within [ESE102 ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course using the Nucleo F746ZG with the [Mbed Community Edition (CE) fork](https://github.com/mbed-ce/mbed-os).
 
 ## Why Community Edition?
 

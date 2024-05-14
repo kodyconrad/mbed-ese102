@@ -57,3 +57,4 @@ _deps
 .ninja_deps
 .ninja_log
 .cache/**/*
+.project

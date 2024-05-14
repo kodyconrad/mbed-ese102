@@ -8,6 +8,22 @@ My journey taking the first official Embedded Systems Essentials with Arm – Pr
 
 These questions eventually led me to the following post by MultipleMonomials (Jamie Smith) [[Help Wanted] Mbed CE: A community fork of Mbed OS](https://forums.mbed.com/t/help-wanted-mbed-ce-a-community-fork-of-mbed-os/17998). Thus, I created this project from [mbed-ce-hello-world](https://github.com/mbed-ce/mbed-ce-hello-world) to finish off the second course, and it would at least be leveraging a fork that is actively supported and maintained by the community.
 
+## Initial Connections
+
+Reference the [Mbed Nucleo F746ZG Pinout for CN8](https://os.mbed.com/media/uploads/jeromecoutant/nucleo_f746zg_zio_left_2022_10_19_V6L6hlp.png)
+
+We will use the **SPI3** channel to control the **SN74HC595**.
+
+### Connection Table
+
+| SN74HC595 Pin Name | Nucleo F746ZG Pin Name | Function |
+| ------------------ | ---------------------- | -------- |
+| SER               | PC_12 (SPI3_MOSI)     | SPI 3 master out slave in; where the data is output.     |
+| RCLK              | PD_2                  | Chip select GPIO output; controls when the register is clocked in.      |
+| SRCLK             | PC_10 (SPI3_SCK)     | SPI 3 Clock signal.     |
+| SRCLR             | 3V3                   | Shift register clear pin high; if low, it will clear the shift register.     |
+| OE                | GND                   | Output Enable low to enable output pins.      |
+
 # Setup
 
 The following are instructions to help setup the project on your local system.

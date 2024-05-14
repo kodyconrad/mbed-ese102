@@ -1,31 +1,45 @@
 #include "mbed.h"
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c\n"
+#define BYTE_TO_BINARY(byte)  \
+  ((byte) & 0x80 ? '1' : '0'), \
+  ((byte) & 0x40 ? '1' : '0'), \
+  ((byte) & 0x20 ? '1' : '0'), \
+  ((byte) & 0x10 ? '1' : '0'), \
+  ((byte) & 0x08 ? '1' : '0'), \
+  ((byte) & 0x04 ? '1' : '0'), \
+  ((byte) & 0x02 ? '1' : '0'), \
+  ((byte) & 0x01 ? '1' : '0') 
 
+std::chrono::milliseconds duration(150);
+
+uint32_t cycle_count = 0;
 UnbufferedSerial pc(CONSOLE_TX, CONSOLE_RX);
-PwmOut pwm(LED1);
+DigitalOut CS(PD_2);
+SPI ser_port(PC_12, PC_11, PC_10);
+char red_mask = (0x1 << 1);
+char switch_word = 0x10;
+
+void write_sr(SPI &port, DigitalOut &cs, char word){
+    cs=0;
+    port.write(word);
+    cs=1;
+}
 
 int main() {
-    printf("Mbed OS %d.%d.%d\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+    printf("\n## ARM ESE102 - Part 1: LED Shifting (MBED Version: %d.%d.%d)##\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
 
-    // Set intial PWM frequency and duty cycle
-    pwm.period(0.01);
-    pwm.write(0.0);
-
-    float pulse_step = 0.05;
-    std::chrono::milliseconds duration(50);
-
+    ser_port.format(8,0);        // Set up the SPI for 8 bit data, //Mode 0 operation
+    ser_port.frequency(1000000); // Clock frequency is 1MHz
+    CS=1;
+    write_sr(ser_port, CS, 0x0);
     while (1) {
-        // Increase duty cycle to 90%
-        for (float i = 0.0; i < .90; i += pulse_step)
-        {
-            pwm.write(i);
+        for (char reg = 1; reg < 0x10; reg++){
+            write_sr(ser_port, CS, reg);
             ThisThread::sleep_for(duration);
         }
-
-        // Decrease duty cycle to 0%
-        for (float i = .90; i > 0.0; i -= pulse_step)
-        {
-            pwm.write(i);
-            ThisThread::sleep_for(duration);
-        }
-    }
+        write_sr(ser_port, CS, 0x0);
+        cycle_count++;
+        printf("Cycle Complete: %lu\n", cycle_count);
+        ThisThread::sleep_for(duration);
+    } 
 }

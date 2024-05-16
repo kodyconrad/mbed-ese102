@@ -13,14 +13,17 @@ include(mbed-os/tools/cmake/app.cmake) # Load Mbed CE toolchain file and basic b
 
 # If you need any custom upload method configuration for your target, do that here
 
-add_subdirectory(mbed-os) # Load Mbed OS build targets.  Must be added before any other subdirectories
+add_subdirectory(mbed-os) # Load Mbed OS build targets.  Must be add ed before any other subdirectories
 
 project(MbedCEESE102)
 
 # Add additional executables for each module and sub-stages within to easily track and allow flashing of that module as needed.
-add_executable(ESE102M1 ./module_1/main.cpp)
+add_executable(ESE102M1LED ./module_1_led/main.cpp)
+target_link_libraries(ESE102M1LED mbed-os) # Can also link to mbed-baremetal here
+mbed_set_post_build(ESE102M1LED) # Must call this for each target to set up bin file creation, code upload, etc
 
-target_link_libraries(ESE102M1 mbed-os) # Can also link to mbed-baremetal here
-mbed_set_post_build(ESE102M1) # Must call this for each target to set up bin file creation, code upload, etc
+add_executable(ESE102M1LCD ./module_1_lcd/main.cpp)
+target_link_libraries(ESE102M1LCD mbed-os) # Can also link to mbed-baremetal here
+mbed_set_post_build(ESE102M1LCD) # Must call this for each target to set up bin file creation, code upload, etc
 
 mbed_finalize_build() # Make sure this is the last line of the top-level buildscript

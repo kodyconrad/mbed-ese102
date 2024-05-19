@@ -7,6 +7,8 @@
 #define COMMAND_MODE 0x00   //used to clear RS line to 0, for command transfer
 #define DATA_MODE 0x04      //used to set RS line to 1, for data transfer
 
+InterruptIn user_button(BUTTON1);
+DigitalOut LCD_LED(PG_2);  // LCD Pin 15 == PG_2, LCD Pin 16 == GND
 DigitalOut CS(PD_2);
 SPI ser_port(PC_12, PC_11, PC_10); // Initialise SPI, using default settings
 
@@ -18,12 +20,16 @@ void shift_out(int data);
 void write_cmd(int cmd);
 void write_data(char c); 
 void write_4bit(int data);
+void toggle_lcd_led();
 
 //----------- MAIN function ---------------//
 int main() {
   ser_port.format(8,0);        // Set up the SPI for 8 bit data, //Mode 0 operation
   ser_port.frequency(1000000); // Clock frequency is 1MHz
   CS=1;
+  // Set LCD LED toggle function for user_button interrupt.
+  user_button.rise(&toggle_lcd_led);
+  LCD_LED=0; // Set default LED output to 0==Off
   init_lcd();  //initialise the LCD
   clr_lcd();   //Clear the LCD
   //while (true){
@@ -86,4 +92,8 @@ void print_lcd(const char *string) {
         write_data(*string++);
             wait_us(40);
     }
+}
+
+void toggle_lcd_led(){
+    LCD_LED = !LCD_LED;
 }

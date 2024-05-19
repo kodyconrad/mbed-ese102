@@ -9,4 +9,4 @@ git reset --hard HEAD
 # The '-d' option tells it to remove untracked directories as well
 # The '-x' option tells it to also remove files ignored by git
 # The '-e !mbed-os/' option tells it to exclude the 'mbed-os' directory
-git clean -d -x -e '!mbed-os/'
+git clean -d -x -e '!mbed-os/' -e '!.vscode/' -f

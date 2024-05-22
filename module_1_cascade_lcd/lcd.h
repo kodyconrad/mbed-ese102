@@ -57,7 +57,7 @@ const char DISPLAY_RIGHT_SHIFT_CURSOR_FOLLOW = CURSOR_OR_DISPLAY_SHIFT | 1 << 3 
 const char FUNCTION_SET = 1 << 5;
 const char INTERFACE_8BIT = 1 << 4; // 1 == 8 bits, 0 == 4 bits interface.
 const char TWO_LINES = 1 << 3; // 1 == 2 lines, 0 == 1 lines
-const char FONT_SIZE_5X11 = 1 << 2; // 1 == 5x11, 0 == 5x8
+const char FONT_SIZE_LARGE = 1 << 2; // 1 == 5x11, 0 == 5x8
 
 // Sets CGRAM address in address counter.
 const char SET_CGRAM_ADDRESS = 1 << 6;
@@ -97,34 +97,31 @@ public:
     // Clears the LCD display
     void clear(void) {
         command(CLEAR_DISPLAY);
+        ThisThread::sleep_for(10ms);
     }
 
     // Initializes the LCD display
     void initialize(void) {
+        /*An internal reset circuit automatically initializes the ST7066U when the power is turned on w/ the following instructions. 
+
+        Clear -> Function Set (DL=1, N=0, F=0) -> Display ON/OFF (D=0, C=0, B=0) -> Entry mode (I/D=1, S=0)
+
+        Note, this operation lasts at least 40ms; we do not have read access, so we must rely on delays.
+        
+        */
         ThisThread::sleep_for(100ms);
-        printf("Initialize: " BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(FUNCTION_SET | INTERFACE_8BIT | TWO_LINES));
-        command(FUNCTION_SET | INTERFACE_8BIT | TWO_LINES); //Function set: 8-bit/2-line
-        ThisThread::sleep_for(100ms);
-        // command(0x30); //command 0x30 = Wake up 
-        // ThisThread::sleep_for(10ms);
-        // command(0x30); //command 0x30 = Wake up 
-        // ThisThread::sleep_for(1ms);
-        // command(0x30); //command 0x30 = Wake up 
-        // ThisThread::sleep_for(1ms);
-        printf("Initialize: Clear LCD\n");
-        clear();
+        command(FUNCTION_SET | INTERFACE_8BIT | TWO_LINES | FONT_SIZE_LARGE); //Function set: 8-bit/2-line
         ThisThread::sleep_for(10ms);
         // command(FUNCTION_SET | INTERFACE_8BIT | TWO_LINES); //Function set: 8-bit/2-line
-        command(DISPLAY_RIGHT_SHIFT_CURSOR_FOLLOW); //Set cursor
-        ThisThread::sleep_for(1ms);
+        command(CURSOR_SHIFT_RIGHT); //Set cursor
+        ThisThread::sleep_for(10ms);
         command(DISPLAY_ON_OFF_CONTROL | DISPLAY_ON); //Display ON; Cursor ON
-        ThisThread::sleep_for(1ms);
-        command(ENTRY_MODE_SET | ENTRY_MODE_MOVE_RIGHT); //Entry mode set
+        ThisThread::sleep_for(10ms);
+        command(ENTRY_MODE_SET); //Entry mode set
     }
 
     // Prints a string to the LCD display
     void print(const char *string) {
-        printf("Print String to LCD: \"%s\"", string);
         while (*string) {
             write(*string++);
             wait_us(40);
@@ -136,13 +133,9 @@ public:
         uint8_t control;
         control = data ? REGISTER_SELECT_DATA | ENABLE : ENABLE;
         uint16_t sr_data = cmd << 8 | control;
-        printf("Command: Instruction = " BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(cmd));
-        printf("Command: Control = " BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(control));
-        printf("Command: Data, %04X\n", sr_data);
         shift_out(sr_data);
         wait_us(5);
         sr_data &= ~ENABLE;
-        printf("Command: Strobe = %04X\n", sr_data);
         shift_out(sr_data);
     }
 

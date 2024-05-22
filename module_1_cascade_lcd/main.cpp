@@ -17,9 +17,10 @@ std::chrono::milliseconds duration(150);
 uint32_t cycle_count = 0;
 char buffer[80];
 UnbufferedSerial pc(CONSOLE_TX, CONSOLE_RX);
-DigitalOut chip_select(PD_2);
+static DigitalOut chip_select(PD_2);
 SPI serial_sr_lcd(PC_12, PC_11, PC_10);
 LCD::LCDController display(serial_sr_lcd, chip_select);
+
 
 int main() {
     printf("\n## ARM ESE102 - Module 1: Bonus Cascaded LCD Control (MBED Version: %d.%d.%d)##\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
@@ -29,11 +30,13 @@ int main() {
     display.initialize();
     ThisThread::sleep_for(100ms);
     display.clear();
-    display.print(" Hello World! ");
     while (1) {
-        while (pc.readable() == 1){
-            pc.read(buffer, 80);
-            display.print(buffer);
-        } 
-    } 
+        char formatted_string[40];
+        for (char character = 0x20; character <= 0x7e; character++){
+            sprintf(formatted_string, " %c ", character);
+            display.print(formatted_string);
+            ThisThread::sleep_for(250ms);
+        }
+        display.clear();
+    }
 }

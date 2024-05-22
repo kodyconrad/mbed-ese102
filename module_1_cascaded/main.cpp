@@ -14,8 +14,8 @@ std::chrono::milliseconds duration(100);
 
 uint32_t cycle_count = 0;
 UnbufferedSerial pc(CONSOLE_TX, CONSOLE_RX);
-DigitalOut CS(PD_2);
-SPI ser_port(PC_12, PC_11, PC_10);
+DigitalOut chip_select(PD_2);
+SPI serial_sr_lcd(PC_12, PC_11, PC_10);
 
 // InterruptIn ser_input(CONSOLE_RX);
 
@@ -28,14 +28,14 @@ void write_sr(SPI &port, DigitalOut &cs, uint16_t data){
 int main() {
     printf("\n## ARM ESE102 - Module 1: Cascaded Shift Register (16-bit) LED Example (Mbed Version: %d.%d.%d) ##\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
 
-    ser_port.format(16,0);       // Set up the SPI for 16 bit data, //Mode 0 operation
-    ser_port.frequency(1000000); // Clock frequency is 1MHz
+    serial_sr_lcd.format(16,0);       // Set up the SPI for 16 bit data, //Mode 0 operation
+    serial_sr_lcd.frequency(1000000); // Clock frequency is 1MHz
     uint16_t max_range = 0x8000;
-    CS=1;
-    write_sr(ser_port, CS, 0x0);
+    chip_select=1;
+    write_sr(serial_sr_lcd, chip_select, 0x0);
     while (1) {
         for (uint16_t reg = 0xffff; reg > 0; reg--) {
-            write_sr(ser_port, CS, reg);
+            write_sr(serial_sr_lcd, chip_select, reg);
             printf("reg = 0x%04X\n", reg); // Debugging output
             ThisThread::sleep_for(duration);
         }

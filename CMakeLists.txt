@@ -30,4 +30,8 @@ add_executable(ESE102M1CASCADE ./module_1_cascaded/main.cpp)
 target_link_libraries(ESE102M1CASCADE mbed-os) # Can also link to mbed-baremetal here
 mbed_set_post_build(ESE102M1CASCADE) # Must call this for each target to set up bin file creation, code upload, etc
 
+add_executable(ESE102M1_CASCADE_LCD ./module_1_cascade_lcd/main.cpp ./module_1_cascade_lcd/lcd.h)
+target_link_libraries(ESE102M1_CASCADE_LCD mbed-os) # Can also link to mbed-baremetal here
+mbed_set_post_build(ESE102M1_CASCADE_LCD) # Must call this for each target to set up bin file creation, code upload, etc
+
 mbed_finalize_build() # Make sure this is the last line of the top-level buildscript

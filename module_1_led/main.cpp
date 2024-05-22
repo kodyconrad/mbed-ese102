@@ -14,8 +14,8 @@ std::chrono::milliseconds duration(150);
 
 uint32_t cycle_count = 0;
 UnbufferedSerial pc(CONSOLE_TX, CONSOLE_RX);
-DigitalOut CS(PD_2);
-SPI ser_port(PC_12, PC_11, PC_10);
+DigitalOut chip_select(PD_2);
+SPI serial_sr_lcd(PC_12, PC_11, PC_10);
 char red_mask = (0x1 << 1);
 char switch_word = 0x10;
 
@@ -28,16 +28,16 @@ void write_sr(SPI &port, DigitalOut &cs, char word){
 int main() {
     printf("\n## ARM ESE102 - Part 1: LED Shifting (MBED Version: %d.%d.%d)##\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
 
-    ser_port.format(8,0);        // Set up the SPI for 8 bit data, //Mode 0 operation
-    ser_port.frequency(1000000); // Clock frequency is 1MHz
-    CS=1;
-    write_sr(ser_port, CS, 0x0);
+    serial_sr_lcd.format(8,0);        // Set up the SPI for 8 bit data, //Mode 0 operation
+    serial_sr_lcd.frequency(1000000); // Clock frequency is 1MHz
+    chip_select=1;
+    write_sr(serial_sr_lcd, chip_select, 0x0);
     while (1) {
         for (char reg = 1; reg < 0x10; reg++){
-            write_sr(ser_port, CS, reg);
+            write_sr(serial_sr_lcd, chip_select, reg);
             ThisThread::sleep_for(duration);
         }
-        write_sr(ser_port, CS, 0x0);
+        write_sr(serial_sr_lcd, chip_select, 0x0);
         cycle_count++;
         printf("Cycle Complete: %lu\n", cycle_count);
         ThisThread::sleep_for(duration);

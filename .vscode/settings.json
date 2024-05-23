@@ -1,0 +1,5 @@
+{
+    "cmake.buildDirectory": "${workspaceFolder}/build/${variant:board}-${variant:buildType}",
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.useCMakePresets": "always"
+}

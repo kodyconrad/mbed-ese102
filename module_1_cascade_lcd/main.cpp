@@ -18,12 +18,16 @@ uint32_t cycle_count = 0;
 char buffer[80];
 UnbufferedSerial pc(CONSOLE_TX, CONSOLE_RX);
 static DigitalOut chip_select(PD_2);
+static PwmOut lcd_backlight(PC_8);
 SPI serial_sr_lcd(PC_12, PC_11, PC_10);
 LCD::LCDController display(serial_sr_lcd, chip_select);
 
 
 int main() {
     printf("\n## ARM ESE102 - Module 1: Bonus Cascaded LCD Control (MBED Version: %d.%d.%d)##\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+    //Backlight configure
+    lcd_backlight.period(1/120.0);
+    lcd_backlight.write(.75);
     serial_sr_lcd.format(16,0);       // Set up the SPI for 16 bit data, //Mode 0 operation
     serial_sr_lcd.frequency(1000000); // Clock frequency is 1MHz
     chip_select=1;

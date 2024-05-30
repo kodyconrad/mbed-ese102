@@ -1,6 +1,6 @@
 # Mbed CE ArmEducationX: ESE102 Project
 
-This repository represents the projects within the [edX ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course, using the Nucleo F746ZG with the Mbed Community Edition (CE) fork.
+This repository represents the projects within the [edX ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course, using the [Nucleo F746ZG](https://www.st.com/en/microcontrollers-microprocessors/stm32f746zg.html) with the Mbed Community Edition (CE) fork.
 
 ## Why Community Edition?
 
@@ -8,11 +8,18 @@ My experience with the [ArmEducationX: Embedded Systems Essentials with Arm: Get
 
 It became very clear that Mbed OS was not being maintained. This meant I was spending time learning an API that I would likely not use afterward. However, thanks to MultipleMonomials and the community, I shifted to using the community edition for this class, employing mbed-ce-hello-world as the template. The CE fork allowed for a significantly improved and more professional workflow, in my opinion, and it is actively maintained, opening up the possibility for future contributions.
 
-# Setup
+## Sections
+
+**Module 1**:
+
+- [Module 1 4bit LCD Communication](./module-1/4b-lcd/README.md)
+- [Module 1 8bit LCD Communication](./module-1/8b-lcd/README.md)
+
+## Setup
 
 The following are instructions to help setup the project on your local system and are a copy from the original project with modifications as necessary.
 
-## How to set up this project:
+> The following were copied and updated from the [mbed-ce-hello-world](https://github.com/mbed-ce/mbed-ce-hello-world)
 
 1. Clone it to your machine.  Don't forget to use `--recursive` to clone the submodules: `git clone --recursive https://github.com/mbed-ce/mbed-ce-hello-world.git`
 2. You may want to update the mbed-os submodule to the latest version, with `cd mbed-ce-hello-world/mbed-os && git fetch origin && git reset --hard origin/master`
@@ -21,11 +28,32 @@ The following are instructions to help setup the project on your local system an
     - On the [command line](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-Command-Line)
     - Using the [CLion IDE](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-CLion)
     - Using the [VS Code IDE](https://github.com/mbed-ce/mbed-os/wiki/Project-Setup:-VS-Code)
-5. Build the `flash-HelloWorld` target to upload the code to a connected device.
+5. Build the `flash-ESE102M#` target to upload the code to a connected device, where `#` is the module number to be built.
 
-## Configuring VS Code Settings
+    **VS Code Notes**
 
-### 1. Open User Settings
+    1. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Build Target` option i.e. `flash-ESE102M1`.
+    2. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Variant` to select from Develop, Debug, etc.
+
+### Connections & References
+
+I will use the [X-NUCLEO-IKS4A1](https://www.st.com/en/ecosystems/x-nucleo-iks4a1.html) instead of the separate temperature sensor presented in the class.
+
+> In addition, due to the use of the X-Nucleo for sensors and for simplicity and compatibility, we will use the Arduino compatible pins for all IO/Control unless specified otherwise. **This offers the best chance that people will be able to re-use the code or adapt it fairly easily.**
+
+**References**:
+
+- [Nucleo F746ZG Board Pinout](https://os.mbed.com/platforms/ST-Nucleo-F746ZG/#board-pinout)
+
+**Pins**:
+
+- **SPI**, SPI1_SCK (D13), MISO (D12), MOSI (D11)
+- **Backlight Control**, PWM2/4 (A0)
+- **Light Sensor**, ADC1/10 (A1)
+
+### VS Code
+
+#### 1. Open User Settings
 
 You can configure VS Code to your liking through its various settings. Nearly every part of VS Code's editor, user interface, and functional behavior has options you can modify. 
 
@@ -35,9 +63,9 @@ I found it incredibly helpful to enable some additional `CMake` visibility setti
    - Press `Ctrl + ,` (Windows/Linux) or `⌘ + ,` (macOS) to open the Command Palette.
    - Type "Preferences: Open User Settings (JSON)" and select it from the dropdown. This will open your `settings.json` file.
 
-### 2. Add or Modify Settings
+#### 2. Add or Modify Settings
 
-In your `settings.json`, you can add or modify the following configurations:
+In your `.vscode/settings.json`, you can add, remove, modify to your hearts content.Below are settings that I found to be helpful for these Mbed OS CE CMake projects.
 
 ```json
 {

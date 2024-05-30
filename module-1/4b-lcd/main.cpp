@@ -1,5 +1,8 @@
 /* LCD demo for Lab 1. Sends character strings to LCD
- * LCD is operated in 4-bit mode.  */
+ * LCD is operated in 4-bit mode.
+ 
+ This is the original code and has minimal modifications i.e. the SPI pins to allow it to function.
+ */
 
 #include "mbed.h"
 

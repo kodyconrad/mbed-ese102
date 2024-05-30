@@ -20,12 +20,6 @@ PinName LCD_SPI_MOSI = D11;
 PinName LCD_SPI_MISO = D12;
 PinName LCD_SPI_CS = D10;
 PinName LCD_LED_PWM = A0;
-PinName LCD_BRIGHTNESS_BUTTON = BUTTON1;
-
-
-// Temp/Humidity SHT40
-const uint8_t SHT40_I2C_ADD = 0x88;
-I2C stm_i2c_bus();
 
 // LED Ticker
 Ticker analog_update, led2_flasher, led3_flasher;
@@ -43,43 +37,12 @@ static volatile float light_percent_value = 0.0;
 static volatile float light_percent_value_scaled = 0.0;
 static volatile bool read_sensors = false;
 
-// Separate a floating-point number into integer and decimal parts
-void float_to_parts(double input, uint32_t& integerPart, uint32_t& decimalPart) {
-    double fractional;
-    fractional = std::modf(input, (double*)&integerPart); // Cast to double* for modf
-    decimalPart = static_cast<uint32_t>(fractional * 100); // Convert fractional part to uint32_t (scaled by 100)
-}
 
-float scale_value(float value, float minimum_value_expected, float maximum_value_expected, float target_minimum, float target_maximum) {
-    // Calculate the original range
-    float originalRange = maximum_value_expected - minimum_value_expected;
-
-    // Calculate the target range
-    float targetRange = target_maximum - target_minimum;
-
-    // Calculate the scaling factor
-    float scalingFactor = targetRange / originalRange;
-
-    // Map the value
-    float mappedValue = (value - minimum_value_expected) * scalingFactor + target_minimum;
-
-    return mappedValue;
-}
-
-void update_backlight(){
-    led1 = !led1;
-    read_sensors = !read_sensors;
-    light_percent_value_scaled = 1.0 - scale_value(light_percent_value, 0.0, 1.0, 0.1, .75);
-    lcd_backlight.write(light_percent_value_scaled);
-}
-
-void flip_2(){
-    led2 = !led2;
-}
-
-void flip_3(){
-    led3 = !led3;
-}
+void float_to_parts(double input, uint32_t& integer_part, uint32_t& decimal_part);
+float scale_value(float value, float minimum_value_expected, float maximum_value_expected, float target_minimum, float target_maximum);
+void update_backlight();
+void flip_2();
+void flip_3();
 
 int main() {
     uint32_t light_percent_int, light_percent_dec;
@@ -131,4 +94,39 @@ int main() {
         }
         ThisThread::sleep_for(150ms);
     }
+}
+
+// Separate a floating-point number into integer and decimal parts
+void float_to_parts(double input, uint32_t& integer_part, uint32_t& decimal_part) {
+    double fractional;
+    fractional = std::modf(input, (double*)&integer_part); // Cast to double* for modf
+    decimal_part = static_cast<uint32_t>(fractional * 100); // Convert fractional part to uint32_t (scaled by 100)
+}
+
+// Scale a float value based on the range expected to the range output desired.
+float scale_value(float value, float minimum_value_expected, float maximum_value_expected, float target_minimum, float target_maximum) {
+    float original_range = maximum_value_expected - minimum_value_expected;
+    float target_range = target_maximum - target_minimum;
+    float scaling_factor = target_range / original_range;
+
+    // Map the value
+    float mappedValue = (value - minimum_value_expected) * scaling_factor + target_minimum;
+
+    return mappedValue;
+}
+
+void update_backlight(){
+    led1 = !led1;
+    read_sensors = !read_sensors;
+    // Values for scaling selected based on lighting in the room to limit minimum and maximum LCD brightness.
+    light_percent_value_scaled = 1.0 - scale_value(light_percent_value, 0.0, 1.0, 0.1, .75);
+    lcd_backlight.write(light_percent_value_scaled);
+}
+
+void flip_2(){
+    led2 = !led2;
+}
+
+void flip_3(){
+    led3 = !led3;
 }

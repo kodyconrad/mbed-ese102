@@ -33,6 +33,7 @@ int main() {
     lcd_cs=1;
     write_sr(serial_sr_lcd, lcd_cs, 0x0);
     while (1) {
+        // Bitwise counting loop for visual functionality verification of the shift register via LEDs attached to `Q[A-H]`
         for (char reg = 1; reg < 0x10; reg++){
             write_sr(serial_sr_lcd, lcd_cs, reg);
             ThisThread::sleep_for(duration);

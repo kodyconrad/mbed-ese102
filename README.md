@@ -1,6 +1,6 @@
 # Mbed CE ArmEducationX: ESE102 Project
 
-This repository represents the projects within the [edX ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course, using the Nucleo F746ZG with the Mbed Community Edition (CE) fork.
+This repository represents the projects within the [edX ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course, using the [Nucleo F746ZG](https://www.st.com/en/microcontrollers-microprocessors/stm32f746zg.html) with the Mbed Community Edition (CE) fork.
 
 ## Why Community Edition?
 
@@ -35,7 +35,23 @@ The following are instructions to help setup the project on your local system an
     1. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Build Target` option i.e. `flash-ESE102M1`.
     2. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Variant` to select from Develop, Debug, etc.
 
-### Configuring VS Code Settings
+### Connections & References
+
+I will use the [X-NUCLEO-IKS4A1](https://www.st.com/en/ecosystems/x-nucleo-iks4a1.html) instead of the separate temperature sensor presented in the class.
+
+> In addition, due to the use of the X-Nucleo for sensors and for simplicity and compatibility, we will use the Arduino compatible pins for all IO/Control unless specified otherwise. **This offers the best chance that people will be able to re-use the code or adapt it fairly easily.**
+
+**References**:
+
+- [Nucleo F746ZG Board Pinout](https://os.mbed.com/platforms/ST-Nucleo-F746ZG/#board-pinout)
+
+**Pins**:
+
+- **SPI**, SPI1_SCK (D13), MISO (D12), MOSI (D11)
+- **Backlight Control**, PWM2/4 (A0)
+- **Light Sensor**, ADC1/10 (A1)
+
+### VS Code
 
 #### 1. Open User Settings
 

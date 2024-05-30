@@ -1,11 +1,3 @@
-# Table of Contents
-
-1. [Introduction](Mbed CE ArmEducationX: ESE102 Project)
-2. Installation
-3. Usage
-4. Contributing
-5. License
-
 # Mbed CE ArmEducationX: ESE102 Project
 
 This repository represents the projects within the [edX ArmEducationX: Embedded Systems Essentials with Arm: Get Practical with Hardware](https://www.edx.org/learn/embedded-systems/arm-education-embedded-systems-essentials-with-arm-get-practical-with-hardware) course, using the Nucleo F746ZG with the Mbed Community Edition (CE) fork.
@@ -16,21 +8,9 @@ My experience with the [ArmEducationX: Embedded Systems Essentials with Arm: Get
 
 It became very clear that Mbed OS was not being maintained. This meant I was spending time learning an API that I would likely not use afterward. However, thanks to MultipleMonomials and the community, I shifted to using the community edition for this class, employing mbed-ce-hello-world as the template. The CE fork allowed for a significantly improved and more professional workflow, in my opinion, and it is actively maintained, opening up the possibility for future contributions.
 
-## Initial Connections
+## Sections
 
-Reference the [Mbed Nucleo F746ZG Pinout for CN8](https://os.mbed.com/media/uploads/jeromecoutant/nucleo_f746zg_zio_left_2022_10_19_V6L6hlp.png)
-
-We will use the **SPI3** channel to control the **SN74HC595**.
-
-### Connection Table
-
-| SN74HC595 Pin Name | Nucleo F746ZG Pin Name | Function |
-| ------------------ | ---------------------- | -------- |
-| SER               | PC_12 (SPI3_MOSI)     | SPI 3 master out slave in; where the data is output.     |
-| RCLK              | PD_2                  | Chip select GPIO output; controls when the register is clocked in.      |
-| SRCLK             | PC_10 (SPI3_SCK)     | SPI 3 Clock signal.     |
-| SRCLR             | 3V3                   | Shift register clear pin high; if low, it will clear the shift register.     |
-| OE                | GND                   | Output Enable low to enable output pins.      |
+1. [Module 1](./module-1/8b-lcd/README.md)
 
 # Setup
 

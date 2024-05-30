@@ -15,7 +15,7 @@ It became very clear that Mbed OS was not being maintained. This meant I was spe
 - [Module 1 4bit LCD Communication](./module-1/4b-lcd/README.md)
 - [Module 1 8bit LCD Communication](./module-1/8b-lcd/README.md)
 
-# Setup
+## Setup
 
 The following are instructions to help setup the project on your local system and are a copy from the original project with modifications as necessary.
 
@@ -35,9 +35,9 @@ The following are instructions to help setup the project on your local system an
     1. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Build Target` option i.e. `flash-ESE102M1`.
     2. Use `Ctrl + Shift + P` to then type or select the `CMake: Select Variant` to select from Develop, Debug, etc.
 
-## Configuring VS Code Settings
+### Configuring VS Code Settings
 
-### 1. Open User Settings
+#### 1. Open User Settings
 
 You can configure VS Code to your liking through its various settings. Nearly every part of VS Code's editor, user interface, and functional behavior has options you can modify. 
 
@@ -47,7 +47,7 @@ I found it incredibly helpful to enable some additional `CMake` visibility setti
    - Press `Ctrl + ,` (Windows/Linux) or `⌘ + ,` (macOS) to open the Command Palette.
    - Type "Preferences: Open User Settings (JSON)" and select it from the dropdown. This will open your `settings.json` file.
 
-### 2. Add or Modify Settings
+#### 2. Add or Modify Settings
 
 In your `.vscode/settings.json`, you can add, remove, modify to your hearts content.Below are settings that I found to be helpful for these Mbed OS CE CMake projects.
 

@@ -10,7 +10,10 @@ It became very clear that Mbed OS was not being maintained. This meant I was spe
 
 ## Sections
 
-1. [Module 1](./module-1/8b-lcd/README.md)
+**Module 1**:
+
+- [Module 1 4bit LCD Communication](./module-1/4b-lcd/README.md)
+- [Module 1 8bit LCD Communication](./module-1/8b-lcd/README.md)
 
 # Setup
 

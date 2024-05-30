@@ -14,7 +14,7 @@ std::chrono::milliseconds duration(150);
 
 uint32_t cycle_count = 0;
 UnbufferedSerial pc(CONSOLE_TX, CONSOLE_RX);
-DigitalOut chip_select(PD_2);
+DigitalOut lcd_cs(PD_2);
 SPI serial_sr_lcd(PC_12, PC_11, PC_10);
 char red_mask = (0x1 << 1);
 char switch_word = 0x10;
@@ -30,14 +30,14 @@ int main() {
 
     serial_sr_lcd.format(8,0);        // Set up the SPI for 8 bit data, //Mode 0 operation
     serial_sr_lcd.frequency(1000000); // Clock frequency is 1MHz
-    chip_select=1;
-    write_sr(serial_sr_lcd, chip_select, 0x0);
+    lcd_cs=1;
+    write_sr(serial_sr_lcd, lcd_cs, 0x0);
     while (1) {
         for (char reg = 1; reg < 0x10; reg++){
-            write_sr(serial_sr_lcd, chip_select, reg);
+            write_sr(serial_sr_lcd, lcd_cs, reg);
             ThisThread::sleep_for(duration);
         }
-        write_sr(serial_sr_lcd, chip_select, 0x0);
+        write_sr(serial_sr_lcd, lcd_cs, 0x0);
         cycle_count++;
         printf("Cycle Complete: %lu\n", cycle_count);
         ThisThread::sleep_for(duration);

@@ -58,5 +58,4 @@ _deps
 .ninja_log
 .cache/**/*
 .project
-.vscode/tasks.json
-.vscode/launch.json
+.vscode/*

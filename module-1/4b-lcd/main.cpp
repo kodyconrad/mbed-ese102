@@ -7,7 +7,7 @@
 #define COMMAND_MODE 0x00   //used to clear RS line to 0, for command transfer
 #define DATA_MODE 0x04      //used to set RS line to 1, for data transfer
 
-DigitalOut chip_select(PD_2);
+DigitalOut lcd_cs(PD_2);
 SPI serial_sr_lcd(PC_12, PC_11, PC_10); // Initialise SPI, using default settings
 
 //Function Prototypes
@@ -23,7 +23,7 @@ void write_4bit(int data);
 int main() {
   serial_sr_lcd.format(8,0);        // Set up the SPI for 8 bit data, //Mode 0 operation
   serial_sr_lcd.frequency(1000000); // Clock frequency is 1MHz
-  chip_select=1;
+  lcd_cs=1;
   init_lcd();  //initialise the LCD
   clr_lcd();   //Clear the LCD
   //while (true){
@@ -67,9 +67,9 @@ void write_4bit(int data, int mode) {  //mode is RS line, ie 0 for cmd, 1 for da
     shift_out(lo_n & ~ENABLE);
 }
 void shift_out(int data) {     //Invokes SPI
-    chip_select = 0;
+    lcd_cs = 0;
     serial_sr_lcd.write(data);  
-    chip_select = 1;
+    lcd_cs = 1;
 }
 void write_cmd(int cmd) {
     write_4bit(cmd, COMMAND_MODE);  

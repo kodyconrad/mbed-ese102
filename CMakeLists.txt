@@ -25,9 +25,14 @@ add_executable(M1_4B_LCD ./module-1/4b-lcd/main.cpp)
 target_link_libraries(M1_4B_LCD mbed-os) # Can also link to mbed-baremetal here
 mbed_set_post_build(M1_4B_LCD) # Must call this for each target to set up bin file creation, code upload, etc
 
-add_executable(M1_8B_LCD ./module-1/8b-lcd/main.cpp ./drivers/lcd.h)
+add_executable(M1_8B_LCD ./module-1/8b-lcd/main.cpp ./drivers/Inc/lcd.h)
 target_include_directories(M1_8B_LCD PRIVATE "${CMAKE_SOURCE_DIR}/drivers") # Allow the 8B-LCD project to see the drivers folder.
 target_link_libraries(M1_8B_LCD mbed-os) # Can also link to mbed-baremetal here
 mbed_set_post_build(M1_8B_LCD) # Must call this for each target to set up bin file creation, code upload, etc
+
+add_executable(M2_ENV_MON ./module-2/env-mon/main.cpp ./drivers/Inc/lcd.h ./drivers/Sensiron/Inc/sht4x.h)
+target_include_directories(M2_ENV_MON PRIVATE "${CMAKE_SOURCE_DIR}/drivers") # Allow the 8B-LCD project to see the drivers folder.
+target_link_libraries(M2_ENV_MON mbed-os) # Can also link to mbed-baremetal here
+mbed_set_post_build(M2_ENV_MON) # Must call this for each target to set up bin file creation, code upload, etc
 
 mbed_finalize_build() # Make sure this is the last line of the top-level buildscript

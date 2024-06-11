@@ -8,18 +8,10 @@ Cascaded Configuration:
 #ifndef LCD_FILE_H
 #define LCD_FILE_H
 #include "mbed.h"
-#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c\n"
-#define BYTE_TO_BINARY(byte) \
-    ((byte) & 0x80 ? '1' : '0'), \
-    ((byte) & 0x40 ? '1' : '0'), \
-    ((byte) & 0x20 ? '1' : '0'), \
-    ((byte) & 0x10 ? '1' : '0'), \
-    ((byte) & 0x08 ? '1' : '0'), \
-    ((byte) & 0x04 ? '1' : '0'), \
-    ((byte) & 0x02 ? '1' : '0'), \
-    ((byte) & 0x01 ? '1' : '0')
 
 namespace LCD {
+
+const uint8_t LINE_CHAR_MAX = 20;
 
 // LCD shift register control bits
 const char REGISTER_SELECT_DATA = 1 << 0;

@@ -1,5 +1,5 @@
 #include "mbed.h"
-#include "lcd.h"
+#include "Inc\lcd.h"
 
 std::chrono::milliseconds duration(150);
 

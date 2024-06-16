@@ -78,10 +78,10 @@ private:
 
     void shift_out(const uint16_t data) {
         cs = 0;
-        this->spi.write(data);  
+        this->spi.write(data);
         cs = 1;
     }
-    
+
 public:
     // Constructor that takes an SPI object
     LCDController(SPI& spi, DigitalOut& cs) : spi(spi), cs(cs) {}
@@ -94,12 +94,12 @@ public:
 
     // Initializes the LCD display
     void initialize(void) {
-        /*An internal reset circuit automatically initializes the ST7066U when the power is turned on w/ the following instructions. 
+        /*An internal reset circuit automatically initializes the ST7066U when the power is turned on w/ the following instructions.
 
         Clear -> Function Set (DL=1, N=0, F=0) -> Display ON/OFF (D=0, C=0, B=0) -> Entry mode (I/D=1, S=0)
 
         Note, this operation lasts at least 40ms; we do not have read access, so we must rely on delays.
-        
+
         */
         ThisThread::sleep_for(100ms);
         command(FUNCTION_SET | INTERFACE_8BIT | TWO_LINES | FONT_SIZE_LARGE); //Function set: 8-bit/2-line
@@ -110,6 +110,7 @@ public:
         command(DISPLAY_ON_OFF_CONTROL | DISPLAY_ON); //Display ON; Cursor ON
         ThisThread::sleep_for(10ms);
         command(ENTRY_MODE_SET); //Entry mode set
+        ThisThread::sleep_for(100ms);
     }
 
     // Prints a string to the LCD display

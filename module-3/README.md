@@ -7,3 +7,4 @@ This is an extension of the original class code that takes it further with casca
 ## Tasks & Objectives
 
 Taking the environmental sensing from `module-2` and applying the basic RTOS operations `Threads` (Tasks) to control all peripherals.
+

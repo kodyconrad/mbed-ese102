@@ -1,6 +1,6 @@
 #include "mbed.h"
-#include "Inc/lcd.hxx"
-#include "Inc/sensiron.hxx"
+#include "lcd.hxx"
+#include "sensiron.hxx"
 
 std::chrono::milliseconds duration(150);
 
@@ -57,7 +57,7 @@ int main() {
 
     while (1) {
         display.command(0x2);
-        sh40_read(stm_i2c_bus, temp_raw, hum_raw);
+        read_sht40(stm_i2c_bus, temp_raw, hum_raw);
         sprintf(lcd_line, "Temperature: %" PRId32 "F", temp_raw);
         display.print(lcd_line);
         display.command(0xC0);

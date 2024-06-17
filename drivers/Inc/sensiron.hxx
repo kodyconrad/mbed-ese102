@@ -12,6 +12,6 @@ const uint8_t SHT40AD1B_I2C_ADDR = 0x89;
 
 int convert_temp(uint16_t temp_ticks, uint8_t crc);
 int convert_humidity(uint16_t rh_ticks, uint8_t crc);
-int read_sht40(I2C& i2c, long& temperature, long& humidity);
+int read_sht40(I2C &i2c, long &temperature, long &humidity);
 
 #endif

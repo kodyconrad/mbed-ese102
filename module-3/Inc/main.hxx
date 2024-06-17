@@ -32,10 +32,8 @@ const int LCD_SPI_DATA_BIT_COUNT = 16;
 const int LCD_SPI_MODE = 0;
 const int LCD_SPI_CLOCK = 1000000;
 const int MAX_LCD_LINE = 20;
-const float BACKLIGHT_PERIOD = 1.0/120.0;
+const float BACKLIGHT_PERIOD = 1.0 / 120.0;
 float light_percent_value = 0.0; // Default to 0% duty (off)
 
-// Prototypes
-void read_ambient_light();
-void update_backlight();
+void setup();
 #endif

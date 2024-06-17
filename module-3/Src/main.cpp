@@ -38,7 +38,7 @@ int main() {
         lcd.command(0xC0);
         sprintf(lcd_line, "Humidity:    %" PRId32 "%%", hum_raw);
         lcd.print(lcd_line);
-        ThisThread::sleep_for(1000ms);
+        ThisThread::sleep_for(500ms);
     }
 }
 
@@ -47,10 +47,9 @@ void read_ambient_light() {
     while(1) {
         ambient_sensor_mutex.lock();
         light_percent_value = lcd_ambient_light_sensor.read();
-        float_to_parts(light_percent_value, light_percent_int, light_percent_dec);
         lcd_backlight.write(light_percent_value);
-        printf("Percent Value: %lu.%lu\n", light_percent_int,light_percent_dec);
+        printf("Percent Value: %lu.%lu\n", light_percent_int, light_percent_dec);
         ambient_sensor_mutex.unlock();
-        ThisThread::sleep_for(250ms);
+        ThisThread::sleep_for(100ms);
     }
 }

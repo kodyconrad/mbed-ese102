@@ -8,13 +8,6 @@ My experience with the [ArmEducationX: Embedded Systems Essentials with Arm: Get
 
 It became very clear that Mbed OS was not being maintained. This meant I was spending time learning an API that I would likely not use afterward. However, thanks to MultipleMonomials and the community, I shifted to using the community edition for this class, employing mbed-ce-hello-world as the template. The CE fork allowed for a significantly improved and more professional workflow, in my opinion, and it is actively maintained, opening up the possibility for future contributions.
 
-## Sections
-
-**Module 1**:
-
-- [Module 1 4bit LCD Communication](./module-1/4b-lcd/README.md)
-- [Module 1 8bit LCD Communication](./module-1/8b-lcd/README.md)
-
 ## Setup
 
 The following are instructions to help setup the project on your local system and are a copy from the original project with modifications as necessary.

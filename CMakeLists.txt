@@ -22,4 +22,7 @@ add_subdirectory(drivers)
 # Add the module-3 executable
 add_subdirectory(module-3)
 
+# Add the module-4 executable
+add_subdirectory(module-4)
+
 mbed_finalize_build() # Make sure this is the last line of the top-level buildscript
